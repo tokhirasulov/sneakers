@@ -4,20 +4,20 @@ import CardItemList from '../CardItemList/CardItemList.vue'
 import { inject, computed } from 'vue'
 
 const props = defineProps({
-    totalPrice: Number,
-    isLoading: Boolean
+  totalPrice: Number,
+  isLoading: Boolean
 })
 
-const vatPrice = computed( () => Math.round((props.totalPrice * 2) /100))
+const vatPrice = computed(() => Math.round((props.totalPrice * 2) / 100))
 
 const emit = defineEmits(['createOrder'])
 
-const {drawerOpen} = inject('card')
+const { drawerOpen } = inject('card')
 </script>
 
 <template>
   <div class="background"></div>
-  <div :class="{ 'content': true, 'active': drawerOpen }">
+  <div :class="{ content: true, active: drawerOpen }">
     <DrawerHead />
     <CardItemList />
 
@@ -35,9 +35,7 @@ const {drawerOpen} = inject('card')
       </div>
     </div>
 
-    <button class="checkout"
-    :disabled="isLoading"
-    @click="() => emit('createOrder')">
+    <button class="checkout" :disabled="isLoading" @click="() => emit('createOrder')">
       <span>Оформить заказ</span>
       <!-- <img src="/arrow-next.svg" alt="next" class="nextIcon"/> -->
     </button>
@@ -67,8 +65,8 @@ const {drawerOpen} = inject('card')
   transition: right 10s ease;
 }
 
-.active{
-    right: 0;
+.active {
+  right: 0;
 }
 
 .line {
@@ -94,18 +92,18 @@ const {drawerOpen} = inject('card')
   transition: ease 0.3s;
 }
 
-.checkout:disabled{
-    cursor: not-allowed;
-    background: #dfdfdf;
+.checkout:disabled {
+  cursor: not-allowed;
+  background: #dfdfdf;
 }
 
-.checkout:disabled:hover{
-    cursor: not-allowed;
-    background: #dfdfdf;
+.checkout:disabled:hover {
+  cursor: not-allowed;
+  background: #dfdfdf;
 }
 
-.checkout:hover{
-    background: #95ca54;
+.checkout:hover {
+  background: #95ca54;
 }
 
 .nextIcon {

@@ -1,13 +1,13 @@
 <script setup>
-  import { inject } from 'vue';
+import { inject } from 'vue'
 
-  const {closeDrawer} = inject('card')
+const { closeDrawer } = inject('card')
 </script>
-
 
 <template>
   <div class="head-wrapper">
-    <svg @click="closeDrawer"
+    <svg
+      @click="closeDrawer"
       width="16"
       height="14"
       viewBox="0 0 16 14"

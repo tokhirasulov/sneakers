@@ -7,7 +7,7 @@ defineProps({
   isFavorite: Boolean,
   isAdded: Boolean,
   onAddToFavorite: Function,
-    onAddToCard: Function
+  onAddToCard: Function
 })
 </script>
 

@@ -2,20 +2,19 @@
 import { inject } from 'vue'
 import CardItem from '../CardItem/CardItem.vue'
 
-const {card, removeFromCard} = inject('card')
-
+const { card, removeFromCard } = inject('card')
 </script>
 
 <template>
   <div class="wrapper">
     <CardItem
-    v-for="item in card"
-    @onClickRemove="() => removeFromCard(item)"
-    :key="item.id"
-    :title="item.title"
-    :price="item.price"
-    :id="item.id"
-    :imageUrl="item.imageUrl"
+      v-for="item in card"
+      @onClickRemove="() => removeFromCard(item)"
+      :key="item.id"
+      :title="item.title"
+      :price="item.price"
+      :id="item.id"
+      :imageUrl="item.imageUrl"
     />
   </div>
 </template>

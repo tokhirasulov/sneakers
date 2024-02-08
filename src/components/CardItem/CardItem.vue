@@ -1,27 +1,24 @@
 <script setup>
+defineProps({
+  title: String,
+  id: Number,
+  price: Number,
+  imageUrl: String
+})
 
-
-  defineProps({
-    title: String,
-    id: Number,
-    price: Number,
-    imageUrl: String
-  })
-
-  const emit = defineEmits(['onClickRemove'])
+const emit = defineEmits(['onClickRemove'])
 </script>
-
 
 <template>
   <div class="cardWrapper">
     <img :src="imageUrl" alt="Sneakers" class="sneakers" />
 
     <div class="innerInfo">
-      <p>{{title}}</p>
+      <p>{{ title }}</p>
 
       <div class="price">
         <b>{{ price }} sum</b>
-        <img src="/close.svg" alt="close" class="closeIcon" @click="() => emit('onClickRemove')"/>
+        <img src="/close.svg" alt="close" class="closeIcon" @click="() => emit('onClickRemove')" />
       </div>
     </div>
   </div>

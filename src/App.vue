@@ -12,20 +12,22 @@ const card = ref([])
 const totalPrice = computed(() => card.value.reduce((acc, item) => acc + item.price, 0))
 
 const isCreatingOrder = ref(false)
-const cardButtonDisabled = computed(()  => isCreatingOrder.value ? true : totalPrice.value ? false : true )
+const cardButtonDisabled = computed(() =>
+  isCreatingOrder.value ? true : totalPrice.value ? false : true
+)
 
-const createOrder = async() => {
+const createOrder = async () => {
   isCreatingOrder.value = true
-  try{
-    const {data} = await axios.post(`https://f7cba7675896fec3.mokky.dev/orders`, {
+  try {
+    const { data } = await axios.post(`https://f7cba7675896fec3.mokky.dev/orders`, {
       items: card.value,
       totalPrice: totalPrice.value
     })
     card.value = []
 
     return data
-  }catch(err){
-    console.log(err);
+  } catch (err) {
+    console.log(err)
   }
   isCreatingOrder.value = false
 }
@@ -39,16 +41,16 @@ const filters = reactive({
 
 const removeFromCard = (item) => {
   card.value.splice(card.value.indexOf(item), 1)
-    item.isAdded = false
+  item.isAdded = false
 }
 
 const addToCard = (item) => {
-    item.isAdded = true
-    card.value.push(item)
+  item.isAdded = true
+  card.value.push(item)
 }
 
 const handleClick = (item) => {
-  if(!item.isAdded) addToCard(item)
+  if (!item.isAdded) addToCard(item)
   else removeFromCard(item)
 }
 
@@ -65,12 +67,10 @@ const addToFavorite = async (item) => {
         obj
       )
       item.favoriteId = favorites.id
-
     } else {
       item.isFavorite = false
       await axios.delete(`https://f7cba7675896fec3.mokky.dev/favorites/${item.favoriteId}`)
       item.favoriteId = null
-
     }
   } catch (e) {
     console.log(e)
@@ -143,21 +143,23 @@ onMounted(async () => {
 
 watch(filters, fetchItem)
 watch(card, () => {
-  items.value = items.value.map(item => ({
+  items.value = items.value.map((item) => ({
     ...item,
     isAdded: true
   }))
 })
-provide(
-  'card', {closeDrawer, openDrawer, drawerOpen, card, removeFromCard}
-)
-
+provide('card', { closeDrawer, openDrawer, drawerOpen, card, removeFromCard })
 </script>
 
 <template>
-    <Drawer v-if="drawerOpen" :totalPrice="totalPrice" @createOrder="createOrder" :isLoading="cardButtonDisabled"/>
+  <Drawer
+    v-if="drawerOpen"
+    :totalPrice="totalPrice"
+    @createOrder="createOrder"
+    :isLoading="cardButtonDisabled"
+  />
   <div class="wrapper">
-    <Header @open-drawer="openDrawer" :totalPrice="totalPrice"/>
+    <Header @open-drawer="openDrawer" :totalPrice="totalPrice" />
 
     <div class="content-wrapper">
       <div class="header">
@@ -176,7 +178,7 @@ provide(
           </div>
         </div>
       </div>
-      <CardList :items="items" @addToFavorite="addToFavorite"  @add-to-card="handleClick"/>
+      <CardList :items="items" @addToFavorite="addToFavorite" @add-to-card="handleClick" />
     </div>
   </div>
 </template>
