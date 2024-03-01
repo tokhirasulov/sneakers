@@ -9,7 +9,7 @@ const emit = defineEmits(['addToFavorite', 'addToCard'])
 </script>
 
 <template>
-  <div class="all-sneakers">
+  <div class="all-sneakers" v-auto-animate>
     <Card
       :key="item.id"
       :id="item.id"

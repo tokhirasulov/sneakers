@@ -2,6 +2,7 @@
 import DrawerHead from './DrawerHead.vue'
 import CardItemList from '../CardItemList/CardItemList.vue'
 import { inject, computed } from 'vue'
+import InfoBlock from '../InfoBlock/InfoBlock.vue';
 
 const props = defineProps({
   totalPrice: Number,
@@ -19,9 +20,12 @@ const { drawerOpen } = inject('card')
   <div class="background"></div>
   <div :class="{ content: true, active: drawerOpen }">
     <DrawerHead />
-    <CardItemList />
+    <div class="blockWrapper" v-if="!totalPrice">
+     <InfoBlock title="Корзина пустая" description="Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ." image-url="/package-icon.png" />
+    </div>
+    <CardItemList v-if="totalPrice"/>
 
-    <div class="lowerSection">
+    <div class="lowerSection" v-if="totalPrice">
       <div class="allPrice">
         <span>Итого:</span>
         <div class="line"></div>
@@ -35,7 +39,7 @@ const { drawerOpen } = inject('card')
       </div>
     </div>
 
-    <button class="checkout" :disabled="isLoading" @click="() => emit('createOrder')">
+    <button class="checkout" :disabled="isLoading" @click="() => emit('createOrder')" v-if="totalPrice">
       <span>Оформить заказ</span>
       <!-- <img src="/arrow-next.svg" alt="next" class="nextIcon"/> -->
     </button>
@@ -43,6 +47,12 @@ const { drawerOpen } = inject('card')
 </template>
 
 <style scoped>
+
+.blockWrapper{
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
 .background {
   position: fixed;
   top: 0;
@@ -55,6 +65,7 @@ const { drawerOpen } = inject('card')
 }
 .content {
   background: white;
+  overflow: scroll;
   width: 385px;
   height: 100%;
   position: fixed;

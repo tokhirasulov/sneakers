@@ -6,7 +6,7 @@ const { card, removeFromCard } = inject('card')
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="wrapper" v-auto-animate>
     <CardItem
       v-for="item in card"
       @onClickRemove="() => removeFromCard(item)"

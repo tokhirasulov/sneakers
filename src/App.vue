@@ -137,15 +137,30 @@ const onChangeSelect = (e) => {
 }
 
 onMounted(async () => {
+  const localCard = localStorage.getItem('card')
+  card.value = localCard ? JSON.parse(localCard) : []
+
   await fetchItem()
   await fetchFavorites()
+
+  items.value = items.value.map((item) => ({
+    ...item,
+    isAdded: card.value.some((cardItem) => cardItem.id === item.id)
+  }))
+})
+
+watch(card, () => {
+  localStorage.setItem('card', JSON.stringify(card.value))
+},
+{
+  deep: true
 })
 
 watch(filters, fetchItem)
 watch(card, () => {
   items.value = items.value.map((item) => ({
     ...item,
-    isAdded: true
+    isAdded: false
   }))
 })
 provide('card', { closeDrawer, openDrawer, drawerOpen, card, removeFromCard })
